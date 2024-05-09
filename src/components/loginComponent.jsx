@@ -7,14 +7,13 @@ import styled from 'styled-components';
 
 
 const Container = styled.div`
-    justify-content: center;
-    align-items: center;
+
 `;
 
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 `;
 
 const Input = styled.input`

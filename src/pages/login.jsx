@@ -12,9 +12,25 @@ import Register from '../components/registerComponent';
 const Container = styled.div`
     justify-content: center;
     align-items: center;
+    background-color: #010b14;
     height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    left: 0;
 `;
+
+const FormContainer = styled.div`
+    background-color: #170538;
+    padding: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+`;
+
 const RegisterBtnContainer = styled.div`
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,20 +52,23 @@ const LoginPage = () => {
         }
     }, [token, navigate]);
 
+    const handleSwitch = () => {
+        setRegister(!register);
+    };
 
     return (
         <Container>
-            {
-                !register ?
-                <>
-                    <Login />
-                    <RegisterBtnContainer>
-                        <RegisterBtn onClick={() => setRegister(true)}>Registrar</RegisterBtn>
-                    </RegisterBtnContainer>  
-                </> 
-                :
-                <Register />
-            } 
+            <FormContainer>
+                {
+                    register ?
+                        <Login />
+                    :
+                        <Register />
+                }
+                <RegisterBtnContainer>
+                    <RegisterBtn onClick={handleSwitch}>{!register ? 'Login' : 'Register'}</RegisterBtn>
+                </RegisterBtnContainer>  
+            </FormContainer>    
         </Container>
     );
 };
