@@ -1,4 +1,3 @@
-// features/tasks/taskSlice.js
 import { createSlice } from '@reduxjs/toolkit'
 
 const authTokenSlice = createSlice({

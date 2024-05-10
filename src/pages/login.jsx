@@ -60,7 +60,7 @@ const LoginPage = () => {
         <Container>
             <FormContainer>
                 {
-                    register ?
+                    !register ?
                         <Login />
                     :
                         <Register />
