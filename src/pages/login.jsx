@@ -66,7 +66,7 @@ const LoginPage = () => {
                         <Register />
                 }
                 <RegisterBtnContainer>
-                    <RegisterBtn onClick={handleSwitch}>{!register ? 'Login' : 'Register'}</RegisterBtn>
+                    <RegisterBtn onClick={handleSwitch}>{register ? 'Login' : 'Register'}</RegisterBtn>
                 </RegisterBtnContainer>  
             </FormContainer>    
         </Container>

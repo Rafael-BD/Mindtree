@@ -27,15 +27,26 @@ const Canvas = () => {
                 {
                     name: "Ideia 1",
                     children: [
-                        { name: "Sub-ideia 1.1" },
-                        { name: "Sub-ideia 1.2" }
+                        { 
+                            name: "Sub-ideia 1.1" ,
+                            children: []
+                        },
+                        { 
+                            name: "Sub-ideia 1.2",
+                            children: []
+                        }
                     ]
                 },
                 {
                     name: "Ideia 2",
                     children: [
-                        { name: "Sub-ideia 2.1" },
-                        { name: "Sub-ideia 2.2" }
+                        { 
+                            name: "Sub-ideia 2.1",
+                            children: []
+                        },
+                        { name: "Sub-ideia 2.2",
+                            children: []
+                        }
                     ]
                 }
             ]
