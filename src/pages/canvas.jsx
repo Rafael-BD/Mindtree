@@ -22,17 +22,17 @@ const Canvas = () => {
     // set tree data mockup for testing
     useEffect(() => {
         dispatch(setTreeData({
-            name: "TESTE",
+            name: "brainstorming",
             children: [
                 {
-                    name: "Ideia 1",
+                    name: "website",
                     children: [
                         { 
                             name: "Sub-ideia 1.1" ,
                             children: []
                         },
                         { 
-                            name: "Sub-ideia 1.2",
+                            name: "rede social",
                             children: []
                         }
                     ]

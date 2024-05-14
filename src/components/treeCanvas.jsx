@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { setTreeData } from '../redux/features/treeDataSlice';
 import { useDispatch } from 'react-redux';
 import {cloneDeep} from 'lodash';
+import getContexts from '../services/getContextsApi';
 
 const {width, height} = window.screen;
 
@@ -85,8 +86,7 @@ const TreeCanvas = ({ data }) => {
         }
     };
     
-    const handleModalSubmit = () => {
-        // Obtenha o caminho para o nó selecionado
+    const handleModalSubmit = async () => {
         let path = [];
         let currentNode = selectedNode;
         while (currentNode) {
@@ -97,13 +97,44 @@ const TreeCanvas = ({ data }) => {
     
         // Crie uma cópia profunda dos dados atuais
         const newData = cloneDeep(data);
+
+        // Array de novas palavras para adicionar (cada palavra é um novo nó na árvore)
+        const contextsCopy = [...selectedNodePath, text];
+        const newWords = await getContexts(contextsCopy);
     
         // Adicione o novo nó à cópia dos dados
-        addNode(path.slice(1), text, newData); // Comece do segundo nó, pois o primeiro é a raiz
+        newWords.forEach(word => addNode(path.slice(1), word, newData));
     
         // Atualize o estado global com a cópia modificada dos dados
         dispatch(setTreeData(newData));
+
+        handleModalClose();
     };
+
+    const handleGenerateContexts = async () => {
+        let path = [];
+        let currentNode = selectedNode;
+        while (currentNode) {
+            path.push(currentNode.data.name);
+            currentNode = currentNode.parent;
+        }
+        path = path.reverse(); // inverte o caminho para começar da raiz
+    
+        // Crie uma cópia profunda dos dados atuais
+        const newData = cloneDeep(data);
+
+        // Array de novas palavras para adicionar (cada palavra é um novo nó na árvore)
+        const contextsCopy = [...selectedNodePath];
+        const newWords = await getContexts(contextsCopy);
+    
+        // Adicione o novo nó à cópia dos dados
+        newWords.forEach(word => addNode(path.slice(1), word, newData));
+    
+        // Atualize o estado global com a cópia modificada dos dados
+        dispatch(setTreeData(newData));
+
+        handleModalClose();
+    }
 
     const handleModalClose = () => {
         setSelectedNode(null);
@@ -140,13 +171,8 @@ const TreeCanvas = ({ data }) => {
             {selectedNode && (
                 <Modal>
                     <CloseButton onClick={handleModalClose}>X</CloseButton>
-                    <TitleModal>Novo prompt</TitleModal>
-                    <InputModal 
-                        type="text" 
-                        value={text} 
-                        onChange={(e) => setText(e.target.value)}
-                    />
-                    <button onClick={handleModalSubmit}>Salvar</button>
+                    <TitleModal>Gerar novas ideias</TitleModal>
+                    <button onClick={handleGenerateContexts}>Gerar</button>
                 </Modal>
             )}
         </>
